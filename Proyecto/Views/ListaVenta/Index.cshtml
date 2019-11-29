@@ -1,0 +1,66 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<h2>Index</h2>
+
+<label>Venta: </label>
+<select id="cmbVenta"></select>
+<label>Producto:</label>
+<select id="cmbProducto"></select>
+<input type="button" class="btn-primary" id="btnver" value="Buscar" />
+<br />
+<br />
+<table id="misListaVenta" class="table"></table>
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Registrar</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+
+                <table>
+                    <tr>
+                        <td>Id</td>
+                        <td><input type="text" id="txtId" /></td>
+                    </tr>
+
+                    <tr>
+                        <td>Id Venta</td>
+                        <td><select id="cmbVentaedt"></select></td>
+                    </tr>
+
+                    <tr>
+                        <td>Id Producto</td>
+                        <td><input type="text" id="txtProductoedt" /></td>
+                    </tr>
+
+                    <tr>
+                        <td>Cantidad</td>
+                        <td><input type="text" id="txtCantidad" /></td>
+                    </tr>
+
+                </table>
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary" id="btnGuardarDeModal">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script src="~/Scripts/BiliotecaProducto.js"></script>

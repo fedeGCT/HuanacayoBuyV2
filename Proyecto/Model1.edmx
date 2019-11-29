@@ -1,0 +1,274 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="CarritoBDModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tblCategoria">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tblListaVenta">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="VentaId" Type="int" />
+          <Property Name="ProductoId" Type="int" />
+          <Property Name="Cantidad" Type="int" />
+          <Property Name="Total" Type="float" />
+        </EntityType>
+        <EntityType Name="tblProducto">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" />
+          <Property Name="Precio" Type="float" />
+          <Property Name="FechaCreacion" Type="datetime" />
+          <Property Name="Foto" Type="varchar" MaxLength="200" />
+          <Property Name="CategoriaId" Type="int" />
+        </EntityType>
+        <EntityType Name="tblVenta">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DiaVenta" Type="datetime" />
+          <Property Name="Subtotal" Type="float" />
+          <Property Name="Iva" Type="float" />
+          <Property Name="Total" Type="float" />
+        </EntityType>
+        <Association Name="FK__ListaVent__Produ__182C9B23">
+          <End Role="tblProducto" Type="Self.tblProducto" Multiplicity="0..1" />
+          <End Role="tblListaVenta" Type="Self.tblListaVenta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblProducto">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblListaVenta">
+              <PropertyRef Name="ProductoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ListaVent__Venta__173876EA">
+          <End Role="tblVenta" Type="Self.tblVenta" Multiplicity="0..1" />
+          <End Role="tblListaVenta" Type="Self.tblListaVenta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblVenta">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblListaVenta">
+              <PropertyRef Name="VentaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Producto__Catego__1273C1CD">
+          <End Role="tblCategoria" Type="Self.tblCategoria" Multiplicity="0..1" />
+          <End Role="tblProducto" Type="Self.tblProducto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCategoria">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblProducto">
+              <PropertyRef Name="CategoriaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CarritoBDModelStoreContainer">
+          <EntitySet Name="tblCategoria" EntityType="Self.tblCategoria" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblListaVenta" EntityType="Self.tblListaVenta" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblProducto" EntityType="Self.tblProducto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblVenta" EntityType="Self.tblVenta" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__ListaVent__Produ__182C9B23" Association="Self.FK__ListaVent__Produ__182C9B23">
+            <End Role="tblProducto" EntitySet="tblProducto" />
+            <End Role="tblListaVenta" EntitySet="tblListaVenta" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ListaVent__Venta__173876EA" Association="Self.FK__ListaVent__Venta__173876EA">
+            <End Role="tblVenta" EntitySet="tblVenta" />
+            <End Role="tblListaVenta" EntitySet="tblListaVenta" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Producto__Catego__1273C1CD" Association="Self.FK__Producto__Catego__1273C1CD">
+            <End Role="tblCategoria" EntitySet="tblCategoria" />
+            <End Role="tblProducto" EntitySet="tblProducto" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CarritoBDModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tblCategoria">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tblProducto" Relationship="Self.FK__Producto__Catego__1273C1CD" FromRole="tblCategoria" ToRole="tblProducto" />
+        </EntityType>
+        <EntityType Name="tblListaVenta">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="VentaId" Type="Int32" />
+          <Property Name="ProductoId" Type="Int32" />
+          <Property Name="Cantidad" Type="Int32" />
+          <Property Name="Total" Type="Double" />
+          <NavigationProperty Name="tblProducto" Relationship="Self.FK__ListaVent__Produ__182C9B23" FromRole="tblListaVenta" ToRole="tblProducto" />
+          <NavigationProperty Name="tblVenta" Relationship="Self.FK__ListaVent__Venta__173876EA" FromRole="tblListaVenta" ToRole="tblVenta" />
+        </EntityType>
+        <EntityType Name="tblProducto">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Precio" Type="Double" />
+          <Property Name="FechaCreacion" Type="DateTime" Precision="3" />
+          <Property Name="Foto" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="CategoriaId" Type="Int32" />
+          <NavigationProperty Name="tblCategoria" Relationship="Self.FK__Producto__Catego__1273C1CD" FromRole="tblProducto" ToRole="tblCategoria" />
+          <NavigationProperty Name="tblListaVenta" Relationship="Self.FK__ListaVent__Produ__182C9B23" FromRole="tblProducto" ToRole="tblListaVenta" />
+        </EntityType>
+        <EntityType Name="tblVenta">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DiaVenta" Type="DateTime" Precision="3" />
+          <Property Name="Subtotal" Type="Double" />
+          <Property Name="Iva" Type="Double" />
+          <Property Name="Total" Type="Double" />
+          <NavigationProperty Name="tblListaVenta" Relationship="Self.FK__ListaVent__Venta__173876EA" FromRole="tblVenta" ToRole="tblListaVenta" />
+        </EntityType>
+        <Association Name="FK__Producto__Catego__1273C1CD">
+          <End Role="tblCategoria" Type="Self.tblCategoria" Multiplicity="0..1" />
+          <End Role="tblProducto" Type="Self.tblProducto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCategoria">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblProducto">
+              <PropertyRef Name="CategoriaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ListaVent__Produ__182C9B23">
+          <End Role="tblProducto" Type="Self.tblProducto" Multiplicity="0..1" />
+          <End Role="tblListaVenta" Type="Self.tblListaVenta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblProducto">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblListaVenta">
+              <PropertyRef Name="ProductoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ListaVent__Venta__173876EA">
+          <End Role="tblVenta" Type="Self.tblVenta" Multiplicity="0..1" />
+          <End Role="tblListaVenta" Type="Self.tblListaVenta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblVenta">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblListaVenta">
+              <PropertyRef Name="VentaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CarritoBDEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tblCategoria" EntityType="Self.tblCategoria" />
+          <EntitySet Name="tblListaVenta" EntityType="Self.tblListaVenta" />
+          <EntitySet Name="tblProducto" EntityType="Self.tblProducto" />
+          <EntitySet Name="tblVenta" EntityType="Self.tblVenta" />
+          <AssociationSet Name="FK__Producto__Catego__1273C1CD" Association="Self.FK__Producto__Catego__1273C1CD">
+            <End Role="tblCategoria" EntitySet="tblCategoria" />
+            <End Role="tblProducto" EntitySet="tblProducto" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ListaVent__Produ__182C9B23" Association="Self.FK__ListaVent__Produ__182C9B23">
+            <End Role="tblProducto" EntitySet="tblProducto" />
+            <End Role="tblListaVenta" EntitySet="tblListaVenta" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ListaVent__Venta__173876EA" Association="Self.FK__ListaVent__Venta__173876EA">
+            <End Role="tblVenta" EntitySet="tblVenta" />
+            <End Role="tblListaVenta" EntitySet="tblListaVenta" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CarritoBDModelStoreContainer" CdmEntityContainer="CarritoBDEntities1">
+          <EntitySetMapping Name="tblCategoria">
+            <EntityTypeMapping TypeName="CarritoBDModel.tblCategoria">
+              <MappingFragment StoreEntitySet="tblCategoria">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblListaVenta">
+            <EntityTypeMapping TypeName="CarritoBDModel.tblListaVenta">
+              <MappingFragment StoreEntitySet="tblListaVenta">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="VentaId" ColumnName="VentaId" />
+                <ScalarProperty Name="ProductoId" ColumnName="ProductoId" />
+                <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+                <ScalarProperty Name="Total" ColumnName="Total" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblProducto">
+            <EntityTypeMapping TypeName="CarritoBDModel.tblProducto">
+              <MappingFragment StoreEntitySet="tblProducto">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Precio" ColumnName="Precio" />
+                <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
+                <ScalarProperty Name="Foto" ColumnName="Foto" />
+                <ScalarProperty Name="CategoriaId" ColumnName="CategoriaId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblVenta">
+            <EntityTypeMapping TypeName="CarritoBDModel.tblVenta">
+              <MappingFragment StoreEntitySet="tblVenta">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="DiaVenta" ColumnName="DiaVenta" />
+                <ScalarProperty Name="Subtotal" ColumnName="Subtotal" />
+                <ScalarProperty Name="Iva" ColumnName="Iva" />
+                <ScalarProperty Name="Total" ColumnName="Total" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
